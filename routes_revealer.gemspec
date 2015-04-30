@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.homepage    = ''
   s.summary     = 'Provides the route /routes which will list the applications routes'
   s.description = 'The /routes route will list all of the consuming application\'s routes except for external redirects, generic HTTP status pages, and default Rails routes'
+  s.license = 'MIT'
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
   s.test_files = Dir["spec/**/*"]
