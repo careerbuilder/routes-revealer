@@ -209,3 +209,8 @@ ActionController::RoutingError (No route matches [GET] "/routes"):
 Started GET "/routes" for 127.0.0.1 at 2015-04-30 11:02:21 -0400
 Processing by RoutesRevealer::RoutesController#index as HTML
 Completed 200 OK in 0ms (Views: 0.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/routes" for 127.0.0.1 at 2015-04-30 11:24:17 -0400
+Processing by RoutesRevealer::RoutesController#index as HTML
+Completed 200 OK in 0ms (Views: 0.2ms | ActiveRecord: 0.0ms)
