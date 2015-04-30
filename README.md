@@ -4,7 +4,7 @@
 To install this engine follow these steps:
 
 1. Add the gem to your Gemfile
-2. Add ```ruby mount RoutesRevealer::Engine => '/' ``` to config/routes.rb
+2. Add ``` mount RoutesRevealer::Engine => '/' ``` to config/routes.rb
 3. ???
 4. Profit!!
 
