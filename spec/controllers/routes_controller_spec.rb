@@ -21,10 +21,11 @@ describe RoutesRevealer::RoutesController do
     end
 
     it { expect(response.status).to eq 200 }
-    it { expect(JSON.parse(response.body).length).to eq 3 }
+    it { expect(JSON.parse(response.body).length).to eq 4 }
     it { expect(JSON.parse(response.body)[0]).to eq "/good/route1" }
     it { expect(JSON.parse(response.body)[1]).to eq "/good/route2" }
-    it { expect(JSON.parse(response.body)[2]).to eq "/assets" }
+    it { expect(JSON.parse(response.body)[2]).to eq "/" }
+    it { expect(JSON.parse(response.body)[3]).to eq "/assets" }
 
   end
 end
