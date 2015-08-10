@@ -19,7 +19,7 @@ module RoutesRevealer
     private
 
     def ignore_route?(route_string)
-      route_string =~ /(\/[0-9]{3})|(^\/routes)|(^\/rails)|(^\/$)/
+      route_string =~ /(\/[0-9]{3})|(^\/routes)|(^\/rails)/
     end
   end
 end
