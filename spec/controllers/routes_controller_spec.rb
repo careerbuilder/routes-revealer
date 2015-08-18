@@ -12,15 +12,15 @@ describe RoutesRevealer::RoutesController do
     let(:route4) { double("route4", path: "/4", verb: "DELETE", reqs: "controller#4") }
     let(:route5) { double("route5", path: "/", verb: "GET", reqs: this_engine_string) }
     let(:route6) { double("route6", path: "/that", verb: "GET", reqs: that_engine_string) }
-    let(:route7) { double("route7", path: "/routes", verb: "HEAD", reqs: "controller#routes") }
-    let(:route8) { double("route7", path: "/rails", verb: "TRACE", reqs: "controller#routes") }
+    let(:bad_route7) { double("bad_route7", path: "/routes", verb: "HEAD", reqs: "controller#route7") }
+    let(:bad_route8) { double("bad_route7", path: "/rails", verb: "TRACE", reqs: "controller#route8") }
 
     let(:this_route1) { double("this_route1", path: "/t1", verb: "RAMBO", reqs: "this_controller#1") }
     let(:this_route2) { double("this_route2", path: "/t2", verb: "ALWAYS", reqs: "this_controller#2") }
     let(:that_route1) { double("that_route1", path: "/1", verb: "SHOOTS", reqs: "that_controller#1") }
     let(:that_route2) { double("that_route2", path: "/2", verb: "WALNUTS", reqs: "that_controller#2") }
 
-    let(:routes) { [route1, route2, route3, route4, route5, route6] }
+    let(:routes) { [route1, route2, route3, route4, route5, route6, bad_route7, bad_route8] }
     let(:this_routes) { [this_route1, this_route2] }
     let(:that_routes) { [that_route1, that_route2] }
 
@@ -42,6 +42,8 @@ describe RoutesRevealer::RoutesController do
       allow(route_wrapper).to receive(:new).with(route4).and_return(route4)
       allow(route_wrapper).to receive(:new).with(route5).and_return(route5)
       allow(route_wrapper).to receive(:new).with(route6).and_return(route6)
+      allow(route_wrapper).to receive(:new).with(bad_route7).and_return(bad_route7)
+      allow(route_wrapper).to receive(:new).with(bad_route8).and_return(bad_route8)
 
       allow(route_wrapper).to receive(:new).with(this_route1).and_return(this_route1)
       allow(route_wrapper).to receive(:new).with(this_route2).and_return(this_route2)
