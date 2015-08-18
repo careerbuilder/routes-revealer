@@ -3,7 +3,10 @@ module RoutesRevealer
     skip_filter(*_process_action_callbacks.map(&:filter))
 
     def index
-      output = map_routes(Rails.application.routes.routes).flatten.compact.uniq
+      output = []
+      output += [asset_route]
+      output += map_routes(Rails.application.routes.routes).flatten
+      output.compact!.uniq!
       render json: output
     end
 
@@ -11,6 +14,10 @@ module RoutesRevealer
 
     def ignore_route?(route_string)
       route_string =~ /(\/[0-9]{3})|(^\/routes)|(^\/rails)/
+    end
+
+    def asset_route
+      Rails.application.class.config.assets.prefix
     end
 
     def map_routes(routes, prepend='')
