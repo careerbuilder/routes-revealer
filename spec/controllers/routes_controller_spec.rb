@@ -66,11 +66,11 @@ describe RoutesRevealer::RoutesController do
 
     it { expect(response.status).to eq 200 }
     it { expect(JSON.parse(response.body).length).to eq 9 }
-    it { expect(JSON.parse(response.body)[0]).to eq "/assets" }
-    it { expect(JSON.parse(response.body)[1]).to eq "/1" }
-    it { expect(JSON.parse(response.body)[2]).to eq "/2" }
-    it { expect(JSON.parse(response.body)[3]).to eq "/3" }
-    it { expect(JSON.parse(response.body)[4]).to eq "/4" }
+    it { expect(JSON.parse(response.body)[0]).to eq "/1" }
+    it { expect(JSON.parse(response.body)[1]).to eq "/2" }
+    it { expect(JSON.parse(response.body)[2]).to eq "/3" }
+    it { expect(JSON.parse(response.body)[3]).to eq "/4" }
+    it { expect(JSON.parse(response.body)[4]).to eq "/assets" }
     it { expect(JSON.parse(response.body)[5]).to eq "/t1" }
     it { expect(JSON.parse(response.body)[6]).to eq "/t2" }
     it { expect(JSON.parse(response.body)[7]).to eq "/that/1" }
