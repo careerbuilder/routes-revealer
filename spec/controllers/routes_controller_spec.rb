@@ -35,7 +35,7 @@ describe RoutesRevealer::RoutesController do
 
     let(:this_engine) { double('this_engine', routes: double('routes', routes: this_routes)) }
     let(:that_engine) { double('that_engine', routes: double('routes', routes: that_routes)) }
-    let(:public_folder) { ['public/zzz/last.txt'] }
+    let(:public_folder) { ['public/zzz/last.txt','public/assets/example.otf','public/system'] }
     let(:route_wrapper) { ActionDispatch::Routing::RouteWrapper }
 
     before do
@@ -78,7 +78,7 @@ describe RoutesRevealer::RoutesController do
     it { expect(JSON.parse(response.body)[9]).to eq '/zzz/last.txt' }
 
     context 'Rails app includes a public folder' do
-      let(:public_folder) { ['public/robots.txt','public/humans.txt','public/dir/something.txt'] }
+      let(:public_folder) { ['public/robots.txt','public/humans.txt','public/dir/something.txt', 'public/assets/boom.png'] }
       it 'adds the contents of the public folder' do
         expect(JSON.parse(response.body).length).to eq 12
       end
