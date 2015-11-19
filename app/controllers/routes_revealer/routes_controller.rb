@@ -16,7 +16,7 @@ module RoutesRevealer
       output = []
       output += [asset_route]
       output += map_routes(Rails.application.routes.routes).flatten
-      output.compact!.uniq!
+      output.compact!.uniq!.sort!
       render json: output
     end
 
