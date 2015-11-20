@@ -78,7 +78,9 @@ describe RoutesRevealer::RoutesController do
     it { expect(JSON.parse(response.body)[9]).to eq '/zzz/public.txt' }
 
     context 'Rails app includes a public folder' do
-      let(:public_folder) { ['public/robots.txt','public/humans.txt','public/dir/something.txt', 'public/assets/boom.png'] }
+      let(:public_folder) do
+        ['public/robots.txt','public/humans.txt','public/dir/something.txt', 'public/assets/boom.png']
+      end
       it 'adds the contents of the public folder' do
         expect(JSON.parse(response.body).length).to eq 12
       end
