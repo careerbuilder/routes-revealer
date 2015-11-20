@@ -35,12 +35,10 @@ module RoutesRevealer
     def public_folder
       files = Dir.glob('public/**/*')
       files.map! do |file|
-        new_filename = file.gsub('public/','')
-        new_filename = ['/', new_filename].join if new_filename.include?('/')
-        new_filename
+        file[6..-1]
       end
       files.reject! do |file|
-        file.starts_with?(asset_route) || file == 'system'
+        file.starts_with?(asset_route) || file == '/system'
       end
       files
     end
