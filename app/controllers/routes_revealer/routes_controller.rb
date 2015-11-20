@@ -15,6 +15,7 @@ module RoutesRevealer
     def index
       output = []
       output += [asset_route]
+      output += public_folder
       output += map_routes(Rails.application.routes.routes).flatten
       output.compact!.uniq!
       output.sort! if output
@@ -29,6 +30,17 @@ module RoutesRevealer
 
     def asset_route
       Rails.application.class.config.assets.prefix
+    end
+
+    def public_folder
+      files = Dir.glob('public/**/*')
+      files.map! do |file|
+        file[6..-1]
+      end
+      files.reject! do |file|
+        file.starts_with?(asset_route) || file == '/system'
+      end
+      files
     end
 
     def map_routes(routes, prepend='')
