@@ -46,8 +46,10 @@ module RoutesRevealer
     def map_routes(routes, prepend='')
       prepend = '' if prepend == '/'
       route_hash_array(routes).map do |route_hash|
-        if route_hash[:reqs].include?("::Engine")
+        if route_hash[:reqs].is_a?(String) && route_hash[:reqs].include?("::Engine")
           map_routes(Module.const_get(route_hash[:reqs]).routes.routes, route_hash[:path])
+        elsif route_hash[:reqs].is_a? Class
+          map_routes(route_hash[:reqs].routes.routes, route_hash[:path])
         else
           "#{prepend}#{route_hash[:path]}" unless ignore_route?(route_hash[:path])
         end
