@@ -2,6 +2,7 @@ Version History
 ======
     * All Version bumps are required to update this file as well!!
 
+    * 3.0.0 - Support Rails 5+
     * 2.2.0 - List the contents of the public directory, I'm sure this will never cause issues not even once
     * 2.1.2 - Sort the list for readability
     * 2.1.1 - Style updates for open sourcing the gem
