@@ -9,8 +9,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 module RoutesRevealer
-  class RoutesController < ApplicationController
-    skip_filter(*_process_action_callbacks.map(&:filter))
+  class RoutesController < ActionController::Metal
 
     def index
       output = []
@@ -19,7 +18,8 @@ module RoutesRevealer
       output += map_routes(Rails.application.routes.routes).flatten
       output.compact!.uniq!
       output.sort! if output
-      render json: output
+      self.content_type = 'application/json'
+      self.response_body = output.to_json
     end
 
     private
