@@ -10,10 +10,19 @@
 # See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
+module Some
+  module Other
+    module Thing
+
+    end
+  end
+end
+
 describe RoutesRevealer::RoutesController do
   describe '#index' do
     let(:this_engine_string) { 'This::Engine' }
     let(:that_engine_string) { 'That::Engine' }
+    let(:some_other_engine) { Some::Other::Thing }
 
     let(:route1) { double('route1', path: '/1', verb: 'GET', reqs: 'controller#1') }
     let(:route2) { double('route2', path: '/2', verb: 'POST', reqs: 'controller#2') }
@@ -21,6 +30,7 @@ describe RoutesRevealer::RoutesController do
     let(:route4) { double('route4', path: '/4', verb: 'DELETE', reqs: 'controller#4') }
     let(:route5) { double('route5', path: '/', verb: 'GET', reqs: this_engine_string) }
     let(:route6) { double('route6', path: '/that', verb: 'GET', reqs: that_engine_string) }
+    let(:some_other_route) { double('other_route', path: '/other_route/1', verb: 'GET', reqs: some_other_engine) }
     let(:bad_route7) { double('bad_route7', path: '/routes', verb: 'HEAD', reqs: 'controller#route7') }
     let(:bad_route8) { double('bad_route7', path: '/rails', verb: 'TRACE', reqs: 'controller#route8') }
 
@@ -29,7 +39,8 @@ describe RoutesRevealer::RoutesController do
     let(:that_route1) { double('that_route1', path: '/1', verb: 'SHOOTS', reqs: 'that_controller#1') }
     let(:that_route2) { double('that_route2', path: '/2', verb: 'WALNUTS', reqs: 'that_controller#2') }
 
-    let(:routes) { [route1, route2, route3, route4, route5, route6, bad_route7, bad_route8] }
+
+    let(:routes) { [route1, route2, route3, route4, route5, route6, some_other_route, bad_route7, bad_route8] }
     let(:this_routes) { [this_route1, this_route2] }
     let(:that_routes) { [that_route1, that_route2] }
 
@@ -51,6 +62,7 @@ describe RoutesRevealer::RoutesController do
       allow(route_wrapper).to receive(:new).with(route4).and_return(route4)
       allow(route_wrapper).to receive(:new).with(route5).and_return(route5)
       allow(route_wrapper).to receive(:new).with(route6).and_return(route6)
+      allow(route_wrapper).to receive(:new).with(some_other_route).and_return(some_other_route)
       allow(route_wrapper).to receive(:new).with(bad_route7).and_return(bad_route7)
       allow(route_wrapper).to receive(:new).with(bad_route8).and_return(bad_route8)
 
@@ -65,35 +77,36 @@ describe RoutesRevealer::RoutesController do
     end
 
     it { expect(response.status).to eq 200 }
-    it { expect(JSON.parse(response.body).length).to eq 10 }
+    it { expect(JSON.parse(response.body).length).to eq 11 }
     it { expect(JSON.parse(response.body)[0]).to eq '/1' }
     it { expect(JSON.parse(response.body)[1]).to eq '/2' }
     it { expect(JSON.parse(response.body)[2]).to eq '/3' }
     it { expect(JSON.parse(response.body)[3]).to eq '/4' }
     it { expect(JSON.parse(response.body)[4]).to eq '/assets' }
-    it { expect(JSON.parse(response.body)[5]).to eq '/t1' }
-    it { expect(JSON.parse(response.body)[6]).to eq '/t2' }
-    it { expect(JSON.parse(response.body)[7]).to eq '/that/1' }
-    it { expect(JSON.parse(response.body)[8]).to eq '/that/2' }
-    it { expect(JSON.parse(response.body)[9]).to eq '/zzz/public.txt' }
+    it { expect(JSON.parse(response.body)[5]).to eq '/other_route/1' }
+    it { expect(JSON.parse(response.body)[6]).to eq '/t1' }
+    it { expect(JSON.parse(response.body)[7]).to eq '/t2' }
+    it { expect(JSON.parse(response.body)[8]).to eq '/that/1' }
+    it { expect(JSON.parse(response.body)[9]).to eq '/that/2' }
+    it { expect(JSON.parse(response.body)[10]).to eq '/zzz/public.txt' }
 
     context 'Rails app includes a public folder' do
       let(:public_folder) do
         ['public/robots.txt','public/humans.txt','public/dir/something.txt', 'public/assets/boom.png']
       end
       it 'adds the contents of the public folder' do
-        expect(JSON.parse(response.body).length).to eq 12
+        expect(JSON.parse(response.body).length).to eq 13
       end
       it { expect(JSON.parse(response.body)[5]).to eq '/dir/something.txt' }
       it { expect(JSON.parse(response.body)[6]).to eq '/humans.txt' }
-      it { expect(JSON.parse(response.body)[7]).to eq '/robots.txt' }
+      it { expect(JSON.parse(response.body)[8]).to eq '/robots.txt' }
     end
 
     context 'Rails app has an empty / non existant public folder' do
       let(:public_folder) { [] }
 
       it 'adds no additional entries' do
-        expect(JSON.parse(response.body).length).to eq 9
+        expect(JSON.parse(response.body).length).to eq 10
       end
     end
   end
