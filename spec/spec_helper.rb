@@ -13,11 +13,11 @@ require 'codeclimate-test-reporter'
 require 'webmock/rspec'
 WebMock.disable_net_connect!(allow: 'codeclimate.com')
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    CodeClimate::TestReporter::Formatter
-]
-SimpleCov.start
+SimpleCov.start do
+  at_exit do
+    SimpleCov::Formatter::HTMLFormatter.new.format(SimpleCov.result)
+  end
+end
 
 ENV['RAILS_ENV'] ||= 'test'
 require 'pry'
