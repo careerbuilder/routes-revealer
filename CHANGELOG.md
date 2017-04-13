@@ -1,7 +1,7 @@
 Version History
 ======
     * All Version bumps are required to update this file as well!!
-
+    * 2.3.0 - Change controller to Metal to reduce overhead
     * 2.2.1 - Some routes have reqs on them that are constants and our code always assumed a string
     * 2.2.0 - List the contents of the public directory, I'm sure this will never cause issues not even once
     * 2.1.2 - Sort the list for readability
