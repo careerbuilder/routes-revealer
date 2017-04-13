@@ -18,6 +18,7 @@ module RoutesRevealer
       output += map_routes(Rails.application.routes.routes).flatten
       output.compact!.uniq!
       output.sort! if output
+      self.content_type = 'application/json'
       self.response_body = output.to_json
     end
 
