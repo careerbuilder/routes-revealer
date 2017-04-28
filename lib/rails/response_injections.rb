@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and limitations under the License.
 module ActionController
   class Base
-    after_filter :add_app_name_headers
+    after_action :add_app_name_headers
 
     def add_app_name_headers
       app_name = Rails.application.class.parent_name
