@@ -2,6 +2,7 @@ Version History
 ======
     * All Version bumps are required to update this file as well!!
 
+    * 3.0.1 - Copyright update and travis config, no functional changes
     * 3.0.0 - Support Rails 5+
     * 2.3.0 - Change controller to Metal to reduce overhead
     * 2.2.1 - Some routes have reqs on them that are constants and our code always assumed a string
