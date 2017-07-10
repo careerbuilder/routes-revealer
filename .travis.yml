@@ -3,6 +3,7 @@ rvm:
 - 2.3
 cache: bundler
 sudo: false
+script: bundle exec rspec
 notifications:
   email: false
   hipchat:
